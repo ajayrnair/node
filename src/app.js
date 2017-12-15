@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const path = require('path');
 require('dotenv').config({
     path: './development.env'
@@ -24,6 +25,10 @@ app.use((req, resp, next) => {
     resp.locals.defaultName = 'Ajay';
     next(); //Do not forget to call next on self written middleware
 });
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 
 //Setup routes

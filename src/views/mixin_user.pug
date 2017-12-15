@@ -1,0 +1,4 @@
+mixin editUser(user={})
+    form(method = 'POST' action = 'add')
+        label(for = 'name') Name
+        input(type ='text' name = 'name' value = `${user.name}`)
