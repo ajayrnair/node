@@ -1,0 +1,9 @@
+extends layout
+block content
+    .form
+        form(action = 'fileUpload' method = 'post' enctype = 'multipart/form-data')
+            label(for = 'userName')  Your Name
+            input(type = 'text' name = 'userName')
+            label(for = 'userFiles')  Your Files
+            input(type = 'file' multiple accept = '.jpg, .csv' name = 'userFiles')
+            button(type = 'submit') Submit

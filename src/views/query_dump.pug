@@ -1,0 +1,9 @@
+extends layout
+block content
+    p The following are the query parameters sent
+    .query_data
+        -const data = queryData && Object.keys(queryData) || []
+        ul
+            each key in data
+                //Assign variable to attribute data-attr, modify and assign in data-mod and l1= variable if content is in variable
+                li(data-attr=key data-mod=(queryData[key].toString().split('').reverse().join('')))= `${key}: ${queryData[key]}`

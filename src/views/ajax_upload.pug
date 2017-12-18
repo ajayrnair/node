@@ -1,0 +1,6 @@
+extends layout
+
+block content
+    //accept can also take in mime types instead of .extensions
+    input(type = 'file' multiple accept = 'text/csv' id = 'fileUploads')
+    script(src='/files/ajax_uploader.js')

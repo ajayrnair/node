@@ -1,7 +1,10 @@
 doctype html
 html
     head
-        title Hello user
+        //defaultAppName is coming from locals set in app.js
+        title=defaultAppName
     body
-        block content
-            | Default content
+        img(src='/files/hi.png')
+        .content
+            block content
+                span Hello to default content
