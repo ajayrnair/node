@@ -7,6 +7,10 @@ require('dotenv').config({
 });
 const expressRoutes = require('./routes/express');
 const pugRoutes = require('./routes/pug');
+const authRoutes = require('./routes/auth');
+const passport = require('passport');
+const session = require('express-session');
+const authController = require('./controllers/auth_controller');
 
 //Create app
 const app = express();
@@ -16,6 +20,15 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 /*
+    Setting up passport to run on every request
+*/
+//Within the session parameters, we can set the cookie expiry
+//https://www.npmjs.com/package/express-session, secure, httpOnly
+app.use(session({ secret: 'ajay' }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+/*
     Setup all the middleware before setting routes & error handling
     Order of middleware matters! Request goes through them in order
     First middleware is for getting global access to some data in views
@@ -23,6 +36,7 @@ app.set('views', path.join(__dirname, 'views'));
 */
 app.use((req, resp, next) => {
     resp.locals.defaultAppName = 'Node & Pug';
+    resp.locals.user = req.user;
     next(); //Do not forget to call next on self written middleware
 });
 
@@ -39,8 +53,9 @@ app.use(bodyParser.urlencoded({
 
 
 //Setup routes
-app.use('/express', expressRoutes);
-app.use('/pug', pugRoutes);
+app.use('/', authRoutes);
+app.use('/express', authController.isAuthenticated, expressRoutes);
+app.use('/pug', authController.isAuthenticated, pugRoutes);
 
 //Path not found handler, since none of the routes handled it till here
 app.use((req, resp, next) => {

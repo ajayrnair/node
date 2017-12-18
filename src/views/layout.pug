@@ -5,6 +5,8 @@ html
         title=defaultAppName
     body
         img(src='/files/hi.png')
+        if user && user.name
+            span= user.name
         .content
             block content
                 span Hello to default content
