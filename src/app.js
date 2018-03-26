@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 //Read a file and make it available on the process.env as environment variable
 require('dotenv').config({
-    path: './development.env'
+    path: '../development.env'
 });
 const expressRoutes = require('./routes/express');
 const pugRoutes = require('./routes/pug');
@@ -76,7 +76,7 @@ app.use((error, req, resp, next) => {
 
 //Start server
 app.listen(process.env.PORT, () => {
-    console.log('Application started');
+    console.log('Application started on ' + process.env.PORT);
 }).on('error', (e) => {
     console.log('Error starting server');
     console.error(e);
